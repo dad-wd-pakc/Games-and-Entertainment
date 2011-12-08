@@ -60,8 +60,12 @@ var animationLoop = function () {
         var radius = 5 + Math.random() * 10;
         var velocityX = Math.random() * 20 - 10;
         var velocityY = Math.random() * 20 - 10;
+        /*
         var accelerationX = Math.random() * 0.2 - 0.1;
         var accelerationY = Math.random() * 0.2 - 0.1;
+        */
+        var accelerationX = 0;
+        var accelerationY = 0;
 
         asteroids.push(new Asteroid(x, y, radius, velocityX, velocityY, accelerationX, accelerationY));
     }
@@ -93,6 +97,20 @@ var animationLoop = function () {
                 currentAsteroid.velocityX *= -1;
                 currentAsteroid.accelerationX *= -1;
             }
+
+            /* Friction
+            if (Math.abs(currentAsteroid.velocityX) > 0.1) {
+                currentAsteroid.velocityX *= 0.9;
+            } else {
+                currentAsteroid.velocityX = 0;
+            }
+
+            if (Math.abs(currentAsteroid.velocityY) > 0.1) {
+                currentAsteroid.velocityY *= 0.9;
+            } else {
+                currentAsteroid.velocityY = 0;
+            }
+            */
 
             if (currentAsteroid.y - currentAsteroid.radius < 0) {
                 currentAsteroid.y = currentAsteroid.radius;
