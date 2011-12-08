@@ -43,6 +43,8 @@ var animationLoop = function () {
         this.y = y;
         this.height = height;
         this.width = width;
+        this.radius = Math.random() * 30;
+        this.angle = 0;
     };
 
     var shapes = new Array();
@@ -60,9 +62,17 @@ var animationLoop = function () {
         var shapesLength = shapes.length;
         for (var i = 0; i < shapesLength; i++) {
             var currentShape = shapes[i];
-            currentShape.x += Math.random() * 20 - 10;
-            currentShape.y += Math.random() * 20 - 10;
-            context.fillRect(currentShape.x, currentShape.y, currentShape.width, currentShape.height);
+
+            var x = currentShape.x + (currentShape.radius * Math.cos(currentShape.angle * (Math.PI / 180)));
+            var y = currentShape.y + (currentShape.radius * Math.sin(currentShape.angle * (Math.PI / 180)));
+
+            currentShape.angle += 15;
+
+            if (currentShape.angle > 360) {
+                currentShape.angle = 0;
+            }
+
+            context.fillRect(x, y, currentShape.width, currentShape.height);
         }
 
         if (playAnimation) {
