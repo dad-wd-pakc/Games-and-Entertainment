@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 Gaming // It's like Flash MX all over again...</title>
+    <!--<link rel="stylesheet" href="normalize.css?v=1.0">-->
+    <link rel="stylesheet" href="reset.css?v=1.0">
+    <style type="text/css">
+        * { margin:0; padding:0; }
+        html, body { height:100%; width:100%; }
+        body { background:rgb(0, 0, 0); color:rgb(255, 255, 255); font-family:Arial, Helvetica, sans-serif; font-size:62.5%;}
+        h1, h2, p, a { margin-bottom:1.5em; }
+        h1 { font-size:2em; }
+        h2 { font-size:1.6em; }
+        p { font-size:1.2em; }
+        a 
+        {
+            background:#ffd300;
+            display:inline-block;
+            font-size:1.4em;
+            padding:10px;
+            text-decoration:none;
+            text-transform:uppercase;
+            -webkit-border-radius:10px;
+            -moz-border-radius:10px;
+            border-radius:10px;
+        }
+        p a { font-size:1em; }
+        a, a:link, a:visited { color:#000000; font-weight:bold; }
+        a:hover, a:active, a:focus { color:#000000; background:#ffffff; }
+        canvas { display:block; }
+        #gameSection {  height:640px; left:50%; margin:-320px 0 0 -240px; position:relative; top:50%; width:480px; }
+        #gameUI { background:rgba(0, 0, 0, 0.25); height:640px; left:0; position:absolute; top:0; width:480px; }
+        #gameIntro, #gameComplete {  }
+        #gameCanvas { background:rgb(255, 255, 255); }
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="dom-sixteen.js"></script>
+</head>
+<body>
+<div id="gameSection">
+    <section>
+        <article>
+            <div id="gameUI">
+                <div id="gameIntro">
+                    <header>
+                        <hgroup>
+                            <h1>HTML5 Space Bowling!!!</h1>
+                            <h2>Like Angry Birds, with a bird's eye view, and no way near as good...</h2>
+                        </hgroup>
+                    </header>
+                    <a href="" id="gamePlayBtn" class="button">Play</a>
+                </div>
+                <div id="gameStats">
+                    <p>Asteroids: <span id="gameAsteroids">XX</span></p>
+                    <p>Clicks: <span class="gameScore">XX</span></p>
+                    <a href="" class="gameResetBtn button">Reset</a>
+                </div>
+                <div id="gameComplete">
+                    <header>
+                        <hgroup>
+                            <h1>Epic win bro!!!</h1>
+                            <h2>Good times indeed, you made it in <span class="gameScore">XX</span> clicks.</h2>
+                        </hgroup>
+                    </header>
+                    <a href="" class="gameResetBtn button">Reset</a>
+                </div>
+            </div>
+            <canvas id="gameCanvas" width="480" height="640">
+                <p>Please use a better browser, you chump!</p>
+            </canvas>
+        </article>
+    </section>
+</div>
+</body>
+</html>
