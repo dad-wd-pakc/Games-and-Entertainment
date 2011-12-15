@@ -8,7 +8,7 @@
     <style type="text/css">
         * { margin:0; padding:0; }
         html, body { height:100%; width:100%; }
-        body { background:rgb(0, 0, 0); color:rgb(255, 255, 255); font-family:Arial, Helvetica, sans-serif; font-size:62.5%;}
+        body { background:rgb(0, 0, 0); color:rgb(255, 255, 255); font-family:Arial, Helvetica, sans-serif; font-size:62.5%; min-height:640px;min-width:480px;}
         h1, h2, p, a { margin-bottom:1.5em; }
         h1 { font-size:2em; }
         h2 { font-size:1.6em; }
@@ -30,9 +30,31 @@
         a:hover, a:active, a:focus { color:#000000; background:#ffffff; }
         canvas { display:block; }
         #gameSection {  height:640px; left:50%; margin:-320px 0 0 -240px; position:relative; top:50%; width:480px; }
-        #gameUI { background:rgba(0, 0, 0, 0.25); height:640px; left:0; position:absolute; top:0; width:480px; }
-        #gameIntro, #gameComplete {  }
         #gameCanvas { background:rgb(255, 255, 255); }
+        #gameUI 
+        {
+            background:rgba(0, 0, 0, 0.25);
+            height:640px; left:0;
+            position:absolute; top:0;
+            width:480px;
+        }
+        #gameIntro, #gameComplete 
+        {
+            background:rgba(0, 0, 0, 0.5);
+            padding:20px;
+            text-align:center;
+        }
+        #gameStats 
+        {
+            padding:10px;
+            position:relative;
+        }
+        #gameStats .gameResetBtn 
+        {
+            position:absolute;
+            right:10px;
+            top:10px;
+        }
     </style>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="dom-sixteen.js"></script>
@@ -46,7 +68,7 @@
                     <header>
                         <hgroup>
                             <h1>HTML5 Space Bowling!!!</h1>
-                            <h2>Like Angry Birds, with a bird's eye view, and no way near as good...</h2>
+                            <h2>Like Angry Birds, but completely rubbish</h2>
                         </hgroup>
                     </header>
                     <a href="" id="gamePlayBtn" class="button">Play</a>
@@ -63,7 +85,7 @@
                             <h2>Good times indeed, you made it in <span class="gameScore">XX</span> clicks.</h2>
                         </hgroup>
                     </header>
-                    <a href="" class="gameResetBtn button">Reset</a>
+                    <a href="" class="gameResetBtn button">Play Again</a>
                 </div>
             </div>
             <canvas id="gameCanvas" width="480" height="640">
