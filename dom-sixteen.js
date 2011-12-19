@@ -24,6 +24,12 @@ var initialiseGame = function () {
     var playerOriginalX;
     var playerOriginalY;
 
+    var playerSelected;
+    var playerMaxAbsVelocity;
+    var playerVelocityDampener;
+    var powerX;
+    var powerY;
+
     var ui = $("#gameUI");
     var uiIntro = $("#gameIntro");
     var uiStats = $("#gameStats");
@@ -41,7 +47,6 @@ var initialiseGame = function () {
         this.friction = friction;
         this.velocityX = 0;
         this.velocityY = 0;
-
         this.player = false;
     };
 
@@ -58,6 +63,12 @@ var initialiseGame = function () {
         platformInnerRadius = 75;
 
         asteroids = new Array();
+
+        playerSelected - false;
+        playerMaxAbsVelocity = 30;
+        playerVelocityDampener = 0.3;
+        powerX = -1;
+        powerY = -1;
 
         var pRadius = 15;
         var pMass = 10;
@@ -109,6 +120,39 @@ var initialiseGame = function () {
 
         uiRemaining.html(asteroids.length - 1);
 
+        $(window).mousedown(function (e) {
+            if (!playerSelected && player.x == playerOriginalX && player.y == playerOriginalY) {
+                var canvasOffset = canvas.offset();
+                var canvasX = Math.floor(e.pageX - canvasOffset.left);
+                var canvasY = Math.floor(e.pageY - canvasOffset.top);
+
+                if (!playGame) {
+                    playGame = true;
+                    animate();
+                }
+
+                var dX = player.x - canvasX;
+                var dY = player.y - canvasY;
+                var distance = Math.sqrt((dX * dX) + (dY * dY));
+                var padding = 5;
+
+                if (distance < player.radius + padding) {
+                    powerX = player.x;
+                    powerY = player.y;
+                    playerSelected = true;
+                }
+            }
+        });
+
+        $(window).mousedown(function (e) {
+
+        });
+
+        $(window).mousedown(function (e) {
+
+        });
+
+
         animate();
     };
 
@@ -144,7 +188,7 @@ var initialiseGame = function () {
             setTimeout(animate, 33);
         }
 
-        context.fillStyle = "rgba(255, 255, 255, 0.75)";
+        context.fillStyle = "rgba(255, 255, 0, 1)";
 
         var asteroidsLength = asteroids.length;
         for (var i = 0; i < asteroidsLength; i++) {
@@ -183,11 +227,14 @@ var initialiseGame = function () {
                     velocityX = ((currentAsteroid.mass - currentAsteroidB.mass) * velocityX + 2 * currentAsteroidB.mass * velocityXB) / (currentAsteroid.mass + currentAsteroidB.mass);
                     velocityXB = vTotal + velocityX;
 
+                    // Move asteroids apart
                     xB = x + (currentAsteroid.radius + currentAsteroidB.radius);
 
+                    // Rotate asteroid positions back
                     currentAsteroid.x = currentAsteroid.x + (x * cosine - y * sine);
                     currentAsteroid.y = currentAsteroid.y + (y * cosine + x * sine);
 
+                    // Rotate velocities back
                     currentAsteroidB.x = currentAsteroid.x + (xB * cosine - yB * sine);
                     currentAsteroidB.y = currentAsteroid.y + (yB * cosine + xB * sine);
 
@@ -197,6 +244,23 @@ var initialiseGame = function () {
                     currentAsteroidB.velocityX = velocityXB * cosine - velocityYB * sine;
                     currentAsteroidB.velocityY = velocityYB * cosine + velocityXB * sine;
                 }
+            }
+
+            // Calculate new position
+            currentAsteroid.x += currentAsteroid.velocityX;
+            currentAsteroid.y += currentAsteroid.velocityY;
+
+            // Friction
+            if (Math.abs(currentAsteroid.velocityX) > 0.1) {
+                currentAsteroid.velocityX *= currentAsteroid.friction;
+            } else {
+                currentAsteroid.velocityX = 0;
+            }
+
+            if (Math.abs(currentAsteroid.velocityY) > 0.1) {
+                currentAsteroid.velocityY *= currentAsteroid.friction;
+            } else {
+                currentAsteroid.velocityY = 0;
             }
 
             context.beginPath();
