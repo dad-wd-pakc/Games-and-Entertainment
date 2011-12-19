@@ -144,11 +144,13 @@ var initialiseGame = function () {
             }
         });
 
-        $(window).mousedown(function (e) {
-
+        $(window).mousemove(function (e) {
+            if (playerSelected) {
+                
+            }
         });
 
-        $(window).mousedown(function (e) {
+        $(window).mouseup(function (e) {
 
         });
 
